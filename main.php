@@ -15,36 +15,92 @@ require 'newsdb.php';
         
         <h1>News</h1>
         
-        <!--list articles-->
-        <?php 
-        $stmt = $mysqli->prepare("select title from stories");
-        if(!$stmt){
-            printf("Query Prep Failed: %s\n", $mysqli->error);
-            exit;
-        }
-        $stmt->execute();
+        
+        
+        
+        <?php
 
         
-        $result = $stmt->get_result();
-
-        echo "<ul>\n";
-        while($row = $result->fetch_assoc()){
-            printf("\t<li> %s </li>\n",
-                htmlspecialchars( $row["title"] )
-            );
-        }
-        echo "</ul>\n";
+        if($_SESSION['logged_in'])
+        {
+            echo "hello" . $_SESSION['user'];
+            //add logout button
         ?>
-        </div>
 
-    </div>
+            <!--create post button-->
+            <form action="post.php">
+                <input type="submit" class="postButton" value="post" />
+            </form>
         
+            <!--your posts (list of hyperlinks)
+                be able to delete posts (delete button next to each post?)
+                -->
+
+                <!--once a post is clicked on (through hyperlink) show body, link (if one exists), comments-->
+                <!--edit button (for each post)
+                    1. should be able to update body
+                    2. should be able to update title
+                    3. should be able to update link
+                -->
+                <!--comments made by current user should have delete buttons-->
+                    <!--time stamp-->
+                    <!--edit button
+                        1. edit comment itself
+                    -->
+
+
+
+
+
+            <!--logout button-->
+            <form action="logout.php">
+                <input type="submit" class="logoutButton" value="logout" />
+            </form>
+        <?php
+            //add button for posting
+        }
+        else
+        {
+
+        
+        ?>
         <!--login button-->
         <form action="login.php">
             <input type="submit" class="loginButton" value="login" />
         </form>
-        
-    </div>    
+        <?php
+        }
+
+        //list all stories (title, username) order by story_id
+        $stmt = $mysqli->prepare("select title, username from stories order by story_id");
+        if(!$stmt){
+            printf("Query Prep Failed: %s\n", $mysqli->error);
+            exit;
+        }
+
+        $stmt->execute();
+
+        $stmt->bind_result($title, $username);
+
+        echo "<ul>\n";
+        while($stmt->fetch()){
+            ?>
+            $titlelink=htmlentities($title);
+            <a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">$titlelink</a>
+             
+            <?php
+            
+            printf("\t<li>%s %s</li>\n",
+                htmlspecialchars($title),
+                htmlspecialchars($username)
+            );
+        }
+        echo "</ul>\n";
+
+        $stmt->close();
+        ?>
+
+      
     
 
 </body>
