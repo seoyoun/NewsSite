@@ -51,6 +51,65 @@ while($stmt->fetch()){
 
 }
 
+
+/******* comment section ***********************************/
+//list all comments (text, username) order by comment_id
+//add comment button
+    //addcomment.php
+        //addingcomment.php redirects back to displaypost.php (use a POST form by story_id)
+//if comment is by current user, have an edit and delete button next to it
+
+$stmt = $mysqli->prepare("select comment, username from comments where story_id=? order by comment_id");
+if(!$stmt){
+    printf("Query Prep Failed: %s\n", $mysqli->error);
+    exit;
+}
+
+$stmt->bind_param('s', $story_id);
+
+$stmt->execute();
+
+$stmt->bind_result($comment, $username);
+
+echo "<ul>\n";
+while($stmt->fetch()){
+    echo $comment . " by " . $username;
+
+    if($username == $_SESSION['user'])
+    {
+        ?>
+        <!--edit button-->
+        <form action="editcomment.php" class = "editcomment" method="post" >
+            <input type="hidden" name = 'comment_id' value="<?php echo $comment_id?>">
+            <input type="submit" value="Edit">
+        </form>
+        <!--delete button--> 
+        <form action="deletecomment.php" class = "deletecomment" method="post" >
+            <input type="hidden" name = 'comment_id' value="<?php echo $comment_id?>">
+            <input type="submit" value="Delete">
+        </form>
+    <?php
+    }
+    ?>
+    
+    
+    
+
+    <!--<a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">--><?php //printf("\t<li>%s", htmlentities($title));?><!--</a>-->
+     
+    <?php
+    
+    //printf(" %s</li>\n", htmlspecialchars($username));
+}
+echo "</ul>\n";
+
+$stmt->close();
+
+
+
+
+
+
 if($_SESSION['logged_in'] && $_SESSION['user']==$username)
 {
     ?>
