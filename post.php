@@ -20,6 +20,7 @@ require 'newsdb.php';
         <form action="posting.php" method="POST">
         <p>
             <label for="title">Title:</label>
+            <!--https://www.w3schools.com/tags/tag_textarea.asp-->
             <textarea id="title" name="title" rows="1" cols="50"></textarea>
 
             <!--remember to filter title-->

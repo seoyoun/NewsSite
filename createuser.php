@@ -30,15 +30,9 @@ if(!$stmt){
 	exit;
 }
 $stmt->bind_param('s', $user);
-
 $stmt->execute();
-
 $stmt->bind_result($res);
-
 $stmt->fetch();
-
-
-
 $stmt->close();
 */
 

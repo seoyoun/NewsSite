@@ -72,7 +72,7 @@ require 'newsdb.php';
         }
 
         //list all stories (title, username) order by story_id
-        $stmt = $mysqli->prepare("select title, username from stories order by story_id");
+        $stmt = $mysqli->prepare("select story_id, title, username from stories order by story_id");
         if(!$stmt){
             printf("Query Prep Failed: %s\n", $mysqli->error);
             exit;
@@ -80,20 +80,24 @@ require 'newsdb.php';
 
         $stmt->execute();
 
-        $stmt->bind_result($title, $username);
+        $stmt->bind_result($story_id, $title, $username);
 
         echo "<ul>\n";
         while($stmt->fetch()){
+            echo $title . " by " . $username;
             ?>
-            $titlelink=htmlentities($title);
-            <a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">$titlelink</a>
+            <!--make this a form that sends title and username through GET or POST-->
+            
+            <form action="displaypost.php" class = "displaypost" method="post" >
+                <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
+                <input type="submit" value="Open">
+            </form>
+
+            <!--<a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">--><?php //printf("\t<li>%s", htmlentities($title));?><!--</a>-->
              
             <?php
             
-            printf("\t<li>%s %s</li>\n",
-                htmlspecialchars($title),
-                htmlspecialchars($username)
-            );
+            //printf(" %s</li>\n", htmlspecialchars($username));
         }
         echo "</ul>\n";
 
