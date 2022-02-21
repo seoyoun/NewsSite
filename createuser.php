@@ -55,7 +55,8 @@ if($row[0] >= 1)
 } 
 else 
 {
-
+    $_SESSION['user'] = $user;
+    $_SESSION['logged_in'] = true;
     // hash password
     $p_hash = password_hash($pass, PASSWORD_BCRYPT);
 

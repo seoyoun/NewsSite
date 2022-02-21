@@ -13,7 +13,15 @@ session_start();
 <body>
 <?php
 require 'newsdb.php';
-$story_id = $_POST['story_id'];
+if(isset($_POST['story_id']))
+{
+    $story_id = $_POST['story_id'];
+}
+else
+{
+    $story_id = $_SESSION['story_id'];
+}
+
 
 
 $stmt = $mysqli->prepare("select title, username, body, link from stories where story_id='$story_id'");
@@ -33,7 +41,7 @@ $stmt->bind_result($title, $username, $body, $link);
     //filter white spaces
     //follows a real link format (ex. www..., http://..)
 
-
+echo $_SESSION['user'];
 while($stmt->fetch()){
     echo "Title: " . $title;
     echo "<br>";
@@ -51,6 +59,22 @@ while($stmt->fetch()){
 
 }
 
+//$_SESSION['logged_in'] && 
+if($_SESSION['user']==$username)
+{
+    ?>
+    <!--edit button-->
+    <form action="editpost.php" class = "editpost" method="post" >
+        <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
+        <input type="submit" value="Edit">
+    </form>
+    <!--delete button--> 
+    <form action="deletepost.php" class = "deletepost" method="post" >
+        <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
+        <input type="submit" value="Delete">
+    </form>
+    <?php
+}
 
 /******* comment section ***********************************/
 //list all comments (text, username) order by comment_id
@@ -59,6 +83,18 @@ while($stmt->fetch()){
         //addingcomment.php redirects back to displaypost.php (use a POST form by story_id)
 //if comment is by current user, have an edit and delete button next to it
 
+?>
+<h2>Comments: </h2>
+
+<form action="postcomment.php" class = "postcomment" method="post">
+    <label for="comment">Comment:</label>
+    <textarea id="comment" name="comment" rows="1" cols="50"><?php if($stmt->fetch()) {
+    echo $comment;}?></textarea>
+    <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
+    <input type="submit" value="Post Comment">
+</form>
+
+<?php
 $stmt = $mysqli->prepare("select comment, username from comments where story_id=? order by comment_id");
 if(!$stmt){
     printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -71,6 +107,7 @@ $stmt->execute();
 
 $stmt->bind_result($comment, $username);
 
+
 echo "<ul>\n";
 while($stmt->fetch()){
     echo $comment . " by " . $username;
@@ -78,6 +115,8 @@ while($stmt->fetch()){
     if($username == $_SESSION['user'])
     {
         ?>
+        
+
         <!--edit button-->
         <form action="editcomment.php" class = "editcomment" method="post" >
             <input type="hidden" name = 'comment_id' value="<?php echo $comment_id?>">
@@ -86,6 +125,7 @@ while($stmt->fetch()){
         <!--delete button--> 
         <form action="deletecomment.php" class = "deletecomment" method="post" >
             <input type="hidden" name = 'comment_id' value="<?php echo $comment_id?>">
+            <input type="hidden" name = 'story_id' value="<?php echo $story_id;?>">
             <input type="submit" value="Delete">
         </form>
     <?php
@@ -110,21 +150,6 @@ $stmt->close();
 
 
 
-if($_SESSION['logged_in'] && $_SESSION['user']==$username)
-{
-    ?>
-    <!--edit button-->
-    <form action="editpost.php" class = "editpost" method="post" >
-        <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
-        <input type="submit" value="Edit">
-    </form>
-    <!--delete button--> 
-    <form action="deletepost.php" class = "deletepost" method="post" >
-        <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
-        <input type="submit" value="Delete">
-    </form>
-    <?php
-}
 
 $stmt->close();
 ?>

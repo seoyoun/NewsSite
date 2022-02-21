@@ -53,16 +53,16 @@ session_start();
         ?>
 
        
-        <!--text box for title-->
+        <!--text box for comment-->
         <form action="editingcomment.php" method="POST">
         <p>
-            <label for="title">Comment:</label>
+            <label for="comment">Comment:</label>
             <!--https://www.w3schools.com/tags/tag_textarea.asp-->
-            <textarea id="title" name="title" rows="1" cols="50"><?php if($stmt->fetch()) {
+            <textarea id="comment" name="comment" rows="1" cols="50"><?php if($stmt->fetch()) {
             echo $comment;}?></textarea>
             
                 
-            <!--remember to filter title-->
+            <!--remember to filter comment-->
 
         </p>
         <!--send story_id-->
@@ -71,6 +71,7 @@ session_start();
         <!--creative portion: support posting images-->
 
         <input type="hidden" name = 'comment_id' value="<?php echo $comment_id;?>">
+        <input type="hidden" name = 'story_id' value="<?php echo $story_id;?>">
         <input type="submit" class="submitcommentButton" value="post comment" />
         
         </form>

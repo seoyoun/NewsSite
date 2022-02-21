@@ -18,5 +18,5 @@ $stmt->execute();
 
 $stmt->close();
 
-header("Location: main.php")
+header("Location: main.php");
 ?>

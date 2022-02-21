@@ -30,28 +30,11 @@ session_start();
             printf("Query Prep Failed: %s\n", $mysqli->error);
             exit;
         }
-        else
-        {
-            echo "query prep succeeded";
-        }
+    
 
-        if(!$stmt->execute())
-        {
-            echo "query execute failed";
-        }
-        else
-        {
-            echo "query execute success";
-        }
+        $stmt->execute();
 
-        if(!$stmt->bind_result($title, $username, $body, $link))
-        {
-            echo "query bind result failed";
-        } 
-        else
-        {
-            echo "query bind result succeeded";
-        }
+        $stmt->bind_result($title, $username, $body, $link);
 
         /*
         if($_SESSION['user'] != $username) //!$_SESSION['logged_in'] || 
@@ -67,7 +50,7 @@ session_start();
         {*/
         ?>
 
-        <?php echo $title; ?>
+        
         <!--text box for title-->
         <form action="editing.php" method="POST">
         <p>
