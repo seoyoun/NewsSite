@@ -1,10 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Verify User</title>
+</head>
+<body>
 <?php
 session_start();
 
 require 'newsdb.php';
 
-$user = $_GET['user'];
-$pass = $_GET['password'];
+$user = $_POST['user'];
+$pass = $_POST['password'];
 
 
 
@@ -44,7 +53,7 @@ $stmt->execute();
 $stmt->bind_result($cnt, $pwd_hash);
 $stmt->fetch();
 
-$pwd_guess = $_GET['password'];
+$pwd_guess = $_POST['password'];
 
 echo $pwd_guess; //prints
 
@@ -59,6 +68,7 @@ if($cnt == 1 && password_verify($pwd_guess, $pwd_hash)){
     
 	$_SESSION['user'] = $user;
     $_SESSION['logged_in'] = true;
+    $_SESSION['token'] = bin2hex(random_bytes(32));
 
 	// Redirect to your target page
     header("Location: main.php");
@@ -75,6 +85,9 @@ if($cnt == 1 && password_verify($pwd_guess, $pwd_hash)){
 
 
 
+
+</body>
+</html>
 
 
 

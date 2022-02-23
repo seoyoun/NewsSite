@@ -15,20 +15,25 @@ $_SESSION['logged_in'] = false;
 </head>
 <body>
     <h1>Login:</h1>
-    <form name="input" action="verifyuser.php" method="get">
+    <form name="input" action="verifyuser.php" method="post">
         Username: <input type="text" name="user"/>
-        Password: <input type="text" name="password"/>
+        Password: <input type="password" name="password"/>
         <input type="submit" value="Login" />
     </form>
 
     <h2>Sign Up:</h2>
-    <form name="input" action="createuser.php" method="get">
+    <form name="input" action="createuser.php" method="post">
         Username: <input type="text" name="user"/>
-        Password: <input type="text" name="password"/>
+        Password: <input type="password" name="password"/>
         <input type="submit" value="Sign Up" />
     </form>
     
+    <br>
+    <br>
 
+    <form name ="input" action='index.php'>
+        <input type="submit" value="Continue as Guest" />
+    </form>
    
 </body>
 </html>

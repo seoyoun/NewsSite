@@ -20,7 +20,7 @@ $user = $_SESSION['user'];
 $story_id = $_POST["story_id"];
 
 
-
+$_SESSION['story_id']=$story_id;
 
 $stmt = $mysqli->prepare("insert into comments (comment, story_id, username) values (?, ?, ?)");
 if(!$stmt){
@@ -28,7 +28,7 @@ if(!$stmt){
 	exit;
 }
 
-$stmt->bind_param('sss', $comment, $story_id, $user);
+$stmt->bind_param('sis', $comment, $story_id, $user);
 
 $stmt->execute();
 

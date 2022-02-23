@@ -13,7 +13,7 @@ if(!$stmt){
 	exit;
 }
 
-$stmt->bind_param('ss', $comment, $comment_id);
+$stmt->bind_param('si', $comment, $comment_id);
 
 $stmt->execute();
 

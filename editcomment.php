@@ -16,14 +16,79 @@ session_start();
         
         <h1>Edit Comment</h1>
 
+        
         <!--query based on story_id for default text in text boxes-->
         <?php
         require 'newsdb.php';
+
+        if(!hash_equals($_SESSION['token'], $_POST['token'])){
+            die("Request forgery detected");
+        }
+        
+        
+        ?>
+        <div style="position: absolute; top: 10px; right: 10px; text-align:right;">
+        <?php
+        echo "User: ". htmlentities($_SESSION['user']); 
+        ?>
+
+        </div>
+        <?php
+            
+        
+        
+        $story_id = $_POST['story_id'];
+        //$_SESSION['story_id'] = $story_id;
+
+        $stmt = $mysqli->prepare("select title, username, body, link, time from stories where story_id=?");
+        if(!$stmt){
+            printf("Query Prep Failed: %s\n", $mysqli->error);
+            exit;
+        }
+        $stmt->bind_param('i', $story_id);
+        $stmt->execute();
+
+        $stmt->bind_result($title, $username, $body, $link, $time); 
+
+
+
+
+        //check if story actually has a link
+            //filter white spaces
+            //follows a real link format (ex. www..., http://..)
+
+
+        while($stmt->fetch()){
+            echo "Title: " . htmlentities($title);
+            echo "<br>";
+            echo "<br>";
+            echo "By: " . htmlentities($username);
+            echo "<br>";
+            echo "<br>";
+            if($link != NULL)
+            {
+                echo "Link: " . htmlentities($link);
+                echo "<br><br>";
+            }
+            echo htmlentities($body);
+            echo "<br><br>";
+            echo "Created: " . $time;
+            
+
+        }
+        $stmt->close();
+
+
+
+
+
+
         $comment_id = $_POST['comment_id'];
         //use this to query for story_id
 
         
-        $stmt = $mysqli->prepare("select comment, username from comments where comment_id='$comment_id'");
+        
+        $stmt = $mysqli->prepare("select comment, username from comments where comment_id=?");
         
         //do we still want to query the username?? there's no text box to edit username
 
@@ -32,6 +97,7 @@ session_start();
             exit;
         }
 
+        $stmt->bind_param('i', $comment_id);
         $stmt->execute();
         
 
@@ -65,8 +131,11 @@ session_start();
             <!--remember to filter comment-->
 
         </p>
+        <?php
+        $stmt->close();
+        ?>
         <!--send story_id-->
-
+        
 
         <!--creative portion: support posting images-->
 
@@ -76,8 +145,12 @@ session_start();
         
         </form>
 
-
+        <form name ="input" action='main.php'>
+            <input type="submit" value="back to main page" />
+        </form>
         
+
+       
 
         </body>
 </html>

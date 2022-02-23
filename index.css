@@ -1,0 +1,12 @@
+.loginButton {
+    position:absolute;
+    top: 5%;
+    right: 5%;
+    font-size: 15px;
+  }
+
+  .open {
+    /*float: right;*/
+    margin: 0;
+    display: inline-block;
+  }

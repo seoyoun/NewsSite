@@ -15,7 +15,14 @@ require 'newsdb.php';
 <body>
         
         <h1>New Post</h1>
+        <?php
+        
+        if(!hash_equals($_SESSION['token'], $_POST['token'])){
+            die("Request forgery detected");
+        }
 
+        echo "User: ". htmlentities($_SESSION['user']) . "<br><br>"; 
+        ?>
         <!--text box for title-->
         <form action="posting.php" method="POST">
         <p>
@@ -31,7 +38,7 @@ require 'newsdb.php';
             <label for="link">Link:</label>
             <textarea id="link" name="link" rows="2" cols="50"></textarea>
 
-            <!--remember to filter link-->
+          
 
         </p>
         <!--text box for body-->
@@ -50,6 +57,8 @@ require 'newsdb.php';
         
         </form>
         
-
+        <form name ="input" action='main.php'>
+            <input type="submit" value="back to main page" />
+        </form>
         </body>
 </html>

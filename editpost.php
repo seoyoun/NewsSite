@@ -10,7 +10,7 @@ session_start();
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Files</title>
-    <link rel="stylesheet" type="text/css" href="files.css" />
+    
 </head>
 <body>
         
@@ -19,10 +19,15 @@ session_start();
         <!--query based on story_id for default text in text boxes-->
         <?php
         require 'newsdb.php';
+        if(!hash_equals($_SESSION['token'], $_POST['token'])){
+            die("Request forgery detected");
+        }
         $story_id = $_POST['story_id'];
-
+        $_SESSION['story_id']=$story_id;
         
-        $stmt = $mysqli->prepare("select title, username, body, link from stories where story_id='$story_id'");
+        echo "User: ". htmlentities($_SESSION['user']) . "<br><br>"; 
+
+        $stmt = $mysqli->prepare("select title, username, body, link from stories where story_id=?");
         
         //do we still want to query the username?? there's no text box to edit username
 
@@ -30,7 +35,7 @@ session_start();
             printf("Query Prep Failed: %s\n", $mysqli->error);
             exit;
         }
-    
+        $stmt->bind_param('i', $story_id);
 
         $stmt->execute();
 
@@ -80,6 +85,10 @@ session_start();
 
             <!--remember to filter body-->
         </p>
+
+        <?php
+        $stmt->close();
+        ?>
         <!--send story_id-->
 
 
@@ -90,10 +99,10 @@ session_start();
         
         </form>
 
-
-        <?php
-        //}
-        ?>
+        <form name ="input" action='main.php'>
+            <input type="submit" value="back to main page" />
+        </form>
+        
 
         </body>
 </html>
