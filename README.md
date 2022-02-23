@@ -3,7 +3,7 @@ Kripa George 490099 georgeka17
 
 Sally Lee 474941 seoyoun
 
-### EC2 instance link for news site:
+### EC2 instance link for news site: http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/index.php
 
 ### Creative portion:
 
