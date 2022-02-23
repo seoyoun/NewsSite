@@ -38,7 +38,7 @@ session_start();
         
         
         $story_id = $_POST['story_id'];
-        //$_SESSION['story_id'] = $story_id;
+        
 
         $stmt = $mysqli->prepare("select title, username, body, link, time from stories where story_id=?");
         if(!$stmt){
@@ -53,9 +53,7 @@ session_start();
 
 
 
-        //check if story actually has a link
-            //filter white spaces
-            //follows a real link format (ex. www..., http://..)
+     
 
 
         while($stmt->fetch()){
@@ -84,13 +82,13 @@ session_start();
 
 
         $comment_id = $_POST['comment_id'];
-        //use this to query for story_id
+        
 
         
         
         $stmt = $mysqli->prepare("select comment, username from comments where comment_id=?");
         
-        //do we still want to query the username?? there's no text box to edit username
+        
 
         if(!$stmt){
             printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -104,18 +102,7 @@ session_start();
         $stmt->bind_result($comment, $username);
         
 
-        /*
-        if($_SESSION['user'] != $username) //!$_SESSION['logged_in'] || 
-        {
-            echo "You are not authorized to make changes to this post.";
-            ?>
-            <form name ="input" action='main.php'>
-                <input type="submit" value="back to main page" />
-            </form>
-            <?php
-        }
-        else
-        {*/
+        
         ?>
 
        
@@ -128,17 +115,13 @@ session_start();
             echo $comment;}?></textarea>
             
                 
-            <!--remember to filter comment-->
-
+            
         </p>
         <?php
         $stmt->close();
         ?>
+
         <!--send story_id-->
-        
-
-        <!--creative portion: support posting images-->
-
         <input type="hidden" name = 'comment_id' value="<?php echo $comment_id;?>">
         <input type="hidden" name = 'story_id' value="<?php echo $story_id;?>">
         <input type="submit" class="submitcommentButton" value="post comment" />

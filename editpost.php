@@ -29,7 +29,7 @@ session_start();
 
         $stmt = $mysqli->prepare("select title, username, body, link from stories where story_id=?");
         
-        //do we still want to query the username?? there's no text box to edit username
+        
 
         if(!$stmt){
             printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -41,18 +41,7 @@ session_start();
 
         $stmt->bind_result($title, $username, $body, $link);
 
-        /*
-        if($_SESSION['user'] != $username) //!$_SESSION['logged_in'] || 
-        {
-            echo "You are not authorized to make changes to this post.";
-            ?>
-            <form name ="input" action='main.php'>
-                <input type="submit" value="back to main page" />
-            </form>
-            <?php
-        }
-        else
-        {*/
+        
         ?>
 
         
@@ -65,7 +54,7 @@ session_start();
             echo $title;?></textarea>
             
                 
-            <!--remember to filter title-->
+            
 
         </p>
         <!--text box for link-->
@@ -74,7 +63,7 @@ session_start();
             <textarea id="link" name="link" rows="2" cols="50"><?php 
             echo $link;?></textarea>
 
-            <!--remember to filter link-->
+            
 
         </p>
         <!--text box for body-->
@@ -83,17 +72,18 @@ session_start();
             <textarea id="body" name="body" rows="6" cols="50"><?php 
             echo $body;}?></textarea>
 
-            <!--remember to filter body-->
+            
         </p>
 
         <?php
         $stmt->close();
         ?>
+
+
+
+
+
         <!--send story_id-->
-
-
-        <!--creative portion: support posting images-->
-
         <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
         <input type="submit" class="submitpostButton" value="post" />
         

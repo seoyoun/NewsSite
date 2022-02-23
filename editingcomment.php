@@ -4,10 +4,10 @@ require 'newsdb.php';
 
 $comment_id = $_POST['comment_id'];
 $comment = $_POST['comment'];
-//$story_id = $_POST['story_id'];
+
 
 $stmt = $mysqli->prepare("update comments set comment=? where comment_id=?");
-//$stmt = $mysqli->prepare("insert into stories (title, username, body, link) values (?, ?, ?, ?)");
+
 if(!$stmt){
 	printf("Query Prep Failed: %s\n", $mysqli->error);
 	exit;

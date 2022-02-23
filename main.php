@@ -8,7 +8,7 @@ require 'newsdb.php';
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Files</title>
+    <title>Main</title>
     <link rel="stylesheet" type="text/css" href="main.css" />
 </head>
 <body>
@@ -39,21 +39,18 @@ require 'newsdb.php';
         while($stmt->fetch()){
             echo htmlentities($title) . " by " . htmlentities($username);
             ?>
-            <!--make this a form that sends title and username through GET or POST-->
-            
+
+            <!--leads to another page that displays the contents of the selected story-->
             <form action="displaypost.php" class = "open" method="post" >
                 <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
                 <input type="submit" value="Open">
             </form>
 
-            <!--<a href="../news_comment/comment_delete.php?cmnt_id=<?php //echo $comment['comment_id']; ?>">[Delete]</td>-->
-            
-            <!--<a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">--><?php //printf("\t<li>%s", htmlentities($title));?><!--</a>-->
              <br>
              <br>
             <?php
             
-            //printf(" %s</li>\n", htmlspecialchars($username));
+            
         }
       
 
@@ -97,22 +94,20 @@ require 'newsdb.php';
             while($stmt->fetch()){
                 echo htmlentities($title);
                 ?>
-                <!--make this a form that sends title and username through GET or POST-->
                 
+                <!--leads to another page that displays the contents of the selected story-->
                 <form action="displaypost.php" class = "open" method="post" >
                     <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
                     <input type="submit" value="Open">
                 </form>
 
-                <!--<a href="../news_comment/comment_delete.php?cmnt_id=<?php //echo $comment['comment_id']; ?>">[Delete]</td>-->
                 
-                <!--<a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">--><?php //printf("\t<li>%s", htmlentities($title));?><!--</a>-->
                 
                 <br>
                 <br>
                 <?php
                 
-                //printf(" %s</li>\n", htmlspecialchars($username));
+                
             }
             
 

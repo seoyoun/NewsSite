@@ -25,7 +25,6 @@ $_SESSION['story_id'] = $story_id;
 
 $stmt = $mysqli->prepare("delete from comments where comment_id=?");
 
-//do we still want to query the username?? there's no text box to edit username
 
 if(!$stmt){
     printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -44,8 +43,8 @@ $stmt->execute();
 $stmt->close();
 
 //go back to displaypost.php of this current comment
-    //do this by querying story_id using comment_id
-header("Location: displaypost.php?story_id=$story_id");  //do I need to use GET for this and is it ok to?
+    
+header("Location: displaypost.php?story_id=$story_id"); 
 ?>
 
 

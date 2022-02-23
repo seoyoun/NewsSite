@@ -26,7 +26,7 @@ require 'newsdb.php';
             <input type="submit" class="loginButton" value="login" />
         </form>
         <?php
-        
+        $_SESSION['logged_in'] = false;
 
         //list all stories (title, username) order by story_id
         $stmt = $mysqli->prepare("select story_id, title, username from stories order by story_id");
@@ -39,26 +39,26 @@ require 'newsdb.php';
 
         $stmt->bind_result($story_id, $title, $username);
 
-        echo "<ul>\n";
+        
         while($stmt->fetch()){
             echo htmlentities($title) . " by " . htmlentities($username);
             ?>
-            <!--make this a form that sends title and username through GET or POST-->
-            
+
+            <!--leads to another page that displays the contents of the selected story-->
             <form action="displaypost.php" class = "open" method="post" >
                 <input type="hidden" name = 'story_id' value="<?php echo $story_id?>">
                 <input type="submit" value="Open">
             </form>
 
-            <!--<a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">--><?php //printf("\t<li>%s", htmlentities($title));?><!--</a>-->
+   
              
             <br>
             <br>
             <?php
             
-            //printf(" %s</li>\n", htmlspecialchars($username));
+            
         }
-        echo "</ul>\n";
+        
 
         $stmt->close();
         ?>

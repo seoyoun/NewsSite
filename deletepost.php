@@ -20,10 +20,10 @@ if(!hash_equals($_SESSION['token'], $_POST['token'])){
 
 $story_id = $_POST['story_id'];
 
-
+//deletes comments belonging to the story first since comments table references stories tables
 $stmt = $mysqli->prepare("delete from comments where story_id=?");
 
-//do we still want to query the username?? there's no text box to edit username
+
 
 if(!$stmt){
     printf("Query Prep Failed: %s\n", $mysqli->error);
@@ -38,7 +38,7 @@ $stmt->close();
 
 $stmt = $mysqli->prepare("delete from stories where story_id=?");
 
-//do we still want to query the username?? there's no text box to edit username
+
 
 if(!$stmt){
     printf("Query Prep Failed: %s\n", $mysqli->error);

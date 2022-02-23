@@ -49,10 +49,10 @@ if($stmt->fetch())
     $stmt->close();
     if($count > 0)
     {
-        echo "This username is already taken."; // prompt for password to just login!
+        echo "This username is already taken."; 
         ?>
         
-        <form name ="input" action='login.php'>
+        <form name ="input" action='login.php'> 
             <input type="submit" value="back to sign up" />
         </form>
         <?php
@@ -74,9 +74,7 @@ if($stmt->fetch())
             printf("Query Prep Failed: %s\n", $mysqli->error);
             exit;
         }
-        else {
-            echo "user added! " . $user; //this prints!
-        }
+       
     
         if(!$stmt->bind_param('ss', $user, $p_hash))
         {

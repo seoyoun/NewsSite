@@ -37,9 +37,6 @@ else {
 
 
 
-// This is a *good* example of how you can implement password-based user authentication in your web application.
-
-
 
 // Use a prepared statement
 $stmt = $mysqli->prepare("SELECT COUNT(*), password FROM users WHERE username=?");

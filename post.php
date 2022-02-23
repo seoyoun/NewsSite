@@ -30,7 +30,7 @@ require 'newsdb.php';
             <!--https://www.w3schools.com/tags/tag_textarea.asp-->
             <textarea id="title" name="title" rows="1" cols="50"></textarea>
 
-            <!--remember to filter title-->
+
 
         </p>
         <!--text box for link-->
@@ -46,11 +46,11 @@ require 'newsdb.php';
             <label for="body">Body:</label>
             <textarea id="body" name="body" rows="6" cols="50"></textarea>
 
-            <!--remember to filter body-->
+            
         </p>
         
 
-        <!--creative portion: support posting images-->
+
 
 
         <input type="submit" class="submitpostButton" value="post" />

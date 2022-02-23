@@ -55,18 +55,14 @@ $stmt->bind_result($title, $username, $body, $link, $time);
 
 
 
-//check if story actually has a link
-    //filter white spaces
-    //follows a real link format (ex. www..., http://..)
+
 
 
 while($stmt->fetch()){
     ?>
     <h1><?php echo htmlentities($title); ?></h1>
     <?php
-    //echo "Title: " . $title;
-    //echo "<br>";
-    //echo "<br>";
+    
     echo "By: " . htmlentities($username);
     echo "<br>";
     echo "<br>";
@@ -185,11 +181,11 @@ while($stmt->fetch()){
     
     
 
-    <!--<a href="http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/displaypost.php">--><?php //printf("\t<li>%s", htmlentities($title));?><!--</a>-->
+   
      
     <?php
     
-    //printf(" %s</li>\n", htmlspecialchars($username));
+    
 }
 echo "</ul>\n";
 
