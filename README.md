@@ -15,3 +15,5 @@ Sally Lee 474941 seoyoun
 
 ### Instructions for testing:
   Either use the pre-existing usernames (kripa, sally) with their corresponding passwords (kripa, sally), or create your own user. To test the admin feature, the username is "admin", and the password is also "admin".
+
+grade:60/60
