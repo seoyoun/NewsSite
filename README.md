@@ -3,8 +3,6 @@ Kripa George 490099 georgeka17
 
 Sally Lee 474941 seoyoun
 
-### EC2 instance link for news site: http://ec2-18-189-1-103.us-east-2.compute.amazonaws.com/~sallylee/index.php
-
 This website allows users to view stories, register and log in to post, edit, delete, and comment on stories.
 Registered users can post, edit, delete their stories but not stories posted by other users. They can comment on anyone's story.
 A registered user's main page consists of all stories on the left but only their stories on the right for quicker access for editing and deleting.
